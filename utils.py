@@ -159,8 +159,9 @@ async def cancel_task(task):
     task.cancel()
     try:
         await task
+        print("Task Canceled")
     except asyncio.CancelledError:
-        pass
+        print("Task Didnt Canceled")
 
 
 def task_callback(task: asyncio.Task):
