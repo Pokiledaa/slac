@@ -2,6 +2,7 @@ from ast import Await
 import asyncio
 from enum import IntEnum
 import logging
+from select import select
 from typing import Awaitable
 from cp_handler import (
     CPHandler,
@@ -83,30 +84,31 @@ class LowLevelCommHandler :
 
     async def handle_cp_change(self,cp_state : CPStates) :
         logger.info("Running CP Change Handle")
-        logger.info(f"SLAC :{self.slac_state}")
         
-        match self.slac_state :
+        
 
-            case SlacState.STATE_UNMATCHED :
-                if self.buffered_state == CPStates.A and cp_state == CPStates.B :
-                    self.slac_start_task = asyncio.create_task(self.slac_start_ass_handle())
+        if self.slac_state ==  SlacState.STATE_UNMATCHED :
+            if self.buffered_state == CPStates.A and cp_state == CPStates.B :
+                self.slac_start_task = asyncio.create_task(self.slac_start_ass_handle())
 
 
 
-            case SlacState.STATE_MATCHING :
-                print("OPSSSSS")
-                await cancel_task(self.slac_start_task)
+        elif self.slac_state == SlacState.STATE_MATCHING :
+            print("OPSSSSS")
+            await cancel_task(self.slac_start_task)
+            await self.slac_stop_ass_handle()
+            await self.module_initialization()
+            self.slac_state = SlacState.STATE_UNMATCHED
+
+        elif self.slac_state == SlacState.STATE_MATCHED :
+            if self.buffered_state == CPStates.B and cp_state == CPStates.A :
                 await self.slac_stop_ass_handle()
-                self.slac_state = SlacState.STATE_UNMATCHED
-
-            case SlacState.STATE_MATCHED :
-                if self.buffered_state == CPStates.B and cp_state == CPStates.A :
-                    await self.slac_stop_ass_handle()
-            
-
-            case SlacState.STATE_UNMACHING :
-                pass
+                await self.module_initialization()
         
+
+        elif self.slac_state ==  SlacState.STATE_UNMACHING :
+            pass
+    
 
 
         

@@ -6,7 +6,6 @@ echo ""
 echo "  build                     builds the app in Docker"
 echo "  run                       runs the app in Docker with prod settings"
 echo "  dev                       runs the app in Docker with dev settings"
- 
 echo "  run-local                 runs the app locally with prod settings"
 echo "  run-local-sudo            runs the app locally using prod settings and root privileges"
 echo "  poetry-update             updates the dependencies in poetry.lock"

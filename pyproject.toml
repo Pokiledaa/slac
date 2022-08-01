@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "insys_slac"
-version = "0.1.0"
+version = "0.3.0"
 description = "Slac Implementation For Insys Powerline Module"
 authors = ["pokiledaa <parsaoski.po@gmail.com>"]
 

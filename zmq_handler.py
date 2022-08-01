@@ -36,9 +36,16 @@ class ZMQHandler () :
             
            
 
-    async def zmq_send (self,response : bytes) :
+    async def zmq_send (self, state :str , message , protocol :str = "slac") :
 
-        await self.socket.send(response)
+        dumped_msg = pickle.dumps (
+            {
+             "state" : state , 
+             "message" : message ,
+             "protocol" : protocol,
+            }
+        )
+        await self.socket.send(dumped_msg)
 
 
 
@@ -50,8 +57,9 @@ class CommunicationHandler (ZMQHandler) :
 
 
     async def start (self) :
-        await self.zmq_send(b"slac")
-        module_state = await self.zmq_recieve()
+        # await self.zmq_send(b"slac")
+        # module_state = await self.zmq_recieve()
+        module_state = b"1"
         if module_state == b"1" :
             logger.info("SLAC MODULE CONNECTED TO GIRA CONTROLLER" )
 
@@ -72,7 +80,31 @@ class CommunicationHandler (ZMQHandler) :
         pass
 
     async def get_cp_write_from_controller (self) :
-        return 1
+        
+        await self.zmq_send(state="initializing",message="cp_write")
+        stream  = await self.zmq_recieve()
+        dumped :dict = pickle.loads(stream)
+        
+        value = dumped.get("message")
+        cp_value = pickle.loads(value)
+        
+        if isinstance(cp_value,CPStates) :
+            return cp_value
+        else :
+            return CPStates.F
+            
+
+           
+       
+            
+
+        
+
+        # msg = stream.get("message")   
+        # print(stream)  
+
+        
+        
 
 
 

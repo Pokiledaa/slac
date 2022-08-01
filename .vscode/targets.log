@@ -8,7 +8,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Thu Jul  7 16:34:49 2022
+# Make data base, printed on Mon Aug  1 12:32:37 2022
 
 # Variables
 
@@ -27,11 +27,11 @@ XDG_SESSION_CLASS = user
 # environment
 XDG_SESSION_TYPE = x11
 # environment
-VSCODE_LOG_NATIVE = false
-# environment
 GTK3_MODULES = xapp-gtk3-module
 # automatic
 ?D = $(patsubst %/,%,$(dir $?))
+# environment
+PLATFORMIO_IDE = 2.5.1
 # automatic
 @D = $(patsubst %/,%,$(dir $@))
 # environment
@@ -47,9 +47,11 @@ SHELL = /bin/sh
 # environment
 GDM_LANG = en_US
 # environment
+VTE_VERSION = 6003
+# environment
 VSCODE_NLS_CONFIG = {"locale":"en-us","availableLanguages":{},"_languagePackSupport":true}
 # environment
-_ = /usr/share/code/code
+_ = /usr/bin/code
 # environment
 XDG_CONFIG_DIRS = /etc/xdg/xdg-cinnamon:/etc/xdg
 # environment
@@ -58,8 +60,6 @@ GTK_OVERLAY_SCROLLING = 1
 MAKEFILE_LIST :=  Makefile
 # automatic
 @F = $(notdir $@)
-# environment
-GIO_LAUNCHED_DESKTOP_FILE = /usr/share/applications/code.desktop
 # 'override' directive
 GNUMAKEFLAGS := 
 # environment
@@ -67,33 +67,29 @@ MAKELEVEL := 0
 # environment
 MANDATORY_PATH = /usr/share/gconf/cinnamon.mandatory.path
 # environment
-XDG_DATA_DIRS = /usr/share/cinnamon:/usr/share/gnome:/home/pokileda/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:/usr/local/share:/usr/share
+XDG_DATA_DIRS = /usr/share/cinnamon:/usr/share/gnome:/home/pokileda/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:/usr/local/share:/usr/share:/var/lib/snapd/desktop
 # environment
 DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/1000/bus
-# environment
-VSCODE_VERBOSE_LOGGING = true
 # environment
 LESSOPEN = | /usr/bin/lesspipe %s
 # environment
 LC_NAME = az_IR.UTF-8
 # environment
-VSCODE_CWD = /home/pokileda
+VSCODE_CWD = /home/pokileda/Desktop/secc
 # environment
 XDG_SESSION_PATH = /org/freedesktop/DisplayManager/Session0
 # default
 MAKE_HOST := x86_64-pc-linux-gnu
-# makefile (from 'Makefile', line 11)
-PATH := /home/pokileda/.local/bin:/home/pokileda/.poetry/bin:/home/pokileda/.local/bin:/home/pokileda/.poetry/bin:/home/pokileda/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+# environment
+NO_PROXY = 127.0.0.1
 # environment
 GPG_AGENT_INFO = /run/user/1000/gnupg/S.gpg-agent:0:1
 # environment
-GJS_DEBUG_OUTPUT = stderr
+LSCOLORS = Gxfxcxdxbxegedabagacad
 # environment
-SESSION_MANAGER = local/pokileda-ThinkPad-T480:@/tmp/.ICE-unix/1078,unix/pokileda-ThinkPad-T480:/tmp/.ICE-unix/1078
+SESSION_MANAGER = local/pokileda-ThinkPad-T480:@/tmp/.ICE-unix/1900,unix/pokileda-ThinkPad-T480:/tmp/.ICE-unix/1900
 # environment
 XDG_RUNTIME_DIR = /run/user/1000
-# environment
-VSCODE_LOG_STACK = false
 # environment
 ELECTRON_RUN_AS_NODE = 1
 # default
@@ -101,19 +97,15 @@ ELECTRON_RUN_AS_NODE = 1
 # environment
 XDG_GREETER_DATA_DIR = /var/lib/lightdm-data/pokileda
 # environment
-LS_COLORS = 
+LS_COLORS = rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:
 # environment
 XDG_SESSION_DESKTOP = cinnamon
 # environment
 SSH_AUTH_SOCK = /run/user/1000/keyring/ssh
-# environment
-GIO_LAUNCHED_DESKTOP_FILE_PID = 2215
 # automatic
 %F = $(notdir $%)
 # environment
 DISPLAY = :0
-# environment
-VSCODE_PIPE_LOGGING = true
 # environment
 PWD = /home/pokileda/Desktop/secc/slac
 # environment
@@ -123,7 +115,7 @@ QT_QPA_PLATFORMTHEME = qt5ct
 # environment
 XDG_SEAT = seat0
 # environment
-SSH_AGENT_PID = 1148
+SSH_AGENT_PID = 1970
 # environment
 ORIGINAL_XDG_CURRENT_DESKTOP = X-Cinnamon
 # environment
@@ -135,13 +127,17 @@ HOME = /home/pokileda
 # environment
 LESSCLOSE = /usr/bin/lesspipe %s %s
 # environment
-VSCODE_CODE_CACHE_PATH = /home/pokileda/.config/Code/CachedData/30d9c6cd9483b2cc586687151bcbcd635f373630
+VSCODE_CLI = 1
+# environment
+VSCODE_CODE_CACHE_PATH = /home/pokileda/.config/Code/CachedData/3b889b090b5ad5793f524b5d1d39fda662b96a2a
 # environment
 LOGNAME = pokileda
 # environment
-APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
+APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = true
 # automatic
 +F = $(notdir $+)
+# environment
+ELECTRON_NO_ATTACH_CONSOLE = 1
 # environment
 VSCODE_HANDLES_UNCAUGHT_ERRORS = true
 # environment
@@ -152,16 +148,18 @@ GNOME_DESKTOP_SESSION_ID = this-is-deprecated
 XDG_VTNR = 7
 # environment
 LC_TIME = en_US.UTF-8
-# makefile (from 'Makefile', line 8)
-IS_TWINE := 
+# environment
+PLATFORMIO_PATH = /home/pokileda/.platformio/penv/bin:/home/pokileda/.platformio/penv:/home/pokileda/.platformio/python3/bin:/home/pokileda/.cargo/bin:/home/pokileda/.poetry/bin:/home/pokileda/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/pokileda/.antigen/bundles/robbyrussell/oh-my-zsh/lib:/home/pokileda/.antigen/bundles/robbyrussell/oh-my-zsh/plugins/git:/home/pokileda/.antigen/bundles/robbyrussell/oh-my-zsh/plugins/composer:/home/pokileda/.antigen/bundles/zsh-users/zsh-autosuggestions:/home/pokileda/.antigen/bundles/zsh-users/zsh-completions:/home/pokileda/.antigen/bundles/zsh-users/zsh-syntax-highlighting
+# environment
+COLORTERM = truecolor
 # default
 MAKE = $(MAKE_COMMAND)
 # default
 MAKECMDGOALS := all
+# makefile (from 'Makefile', line 11)
+PATH := /home/pokileda/.local/bin:/home/pokileda/.cargo/bin:/home/pokileda/.poetry/bin:/home/pokileda/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/pokileda/.antigen/bundles/robbyrussell/oh-my-zsh/lib:/home/pokileda/.antigen/bundles/robbyrussell/oh-my-zsh/plugins/git:/home/pokileda/.antigen/bundles/robbyrussell/oh-my-zsh/plugins/composer:/home/pokileda/.antigen/bundles/zsh-users/zsh-autosuggestions:/home/pokileda/.antigen/bundles/zsh-users/zsh-completions:/home/pokileda/.antigen/bundles/zsh-users/zsh-syntax-highlighting
 # environment
-SHLVL = 0
-# environment
-VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-af498a7b-3cf4-432b-9eeb-893651cb35bd.sock
+SHLVL = 2
 # environment
 XDG_SESSION_ID = c2
 # environment
@@ -174,12 +172,16 @@ LC_MONETARY = az_IR.UTF-8
 XDG_CURRENT_DESKTOP = X-Cinnamon
 # makefile (from 'Makefile', line 7)
 IS_POETRY := 
+# environment
+LESS = -R
 # automatic
 %D = $(patsubst %/,%,$(dir $%))
 # environment
 LC_TELEPHONE = az_IR.UTF-8
 # default
 MAKE_COMMAND := make
+# environment
+OLDPWD = /home/pokileda/Desktop/secc
 # default
 .VARIABLES := 
 # automatic
@@ -189,15 +191,16 @@ LANGUAGE = en_US
 # environment
 XDG_SEAT_PATH = /org/freedesktop/DisplayManager/Seat0
 # environment
-VSCODE_IPC_HOOK = /run/user/1000/vscode-ce92d484-1.68.1-main.sock
+VSCODE_IPC_HOOK = /run/user/1000/vscode-ce92d484-1.69.2-main.sock
 # makefile
 MAKEFLAGS = pqrR
 # environment
 MFLAGS = -pqrR
 # automatic
 *D = $(patsubst %/,%,$(dir $*))
+# makefile (from 'Makefile', line 8)
+IS_TWINE := 
 # automatic
- 
 +D = $(patsubst %/,%,$(dir $+))
 # environment
 GDK_BACKEND = x11
@@ -205,6 +208,8 @@ GDK_BACKEND = x11
 LC_PAPER = az_IR.UTF-8
 # environment
 CINNAMON_VERSION = 5.2.7
+# environment
+LC_IDENTIFICATION = az_IR.UTF-8
 # environment
 QT_ACCESSIBILITY = 1
 # environment
@@ -218,13 +223,22 @@ LC_NUMERIC = az_IR.UTF-8
 # automatic
 <F = $(notdir $<)
 # environment
+PLATFORMIO_CALLER = vscode
+# environment
 LC_MEASUREMENT = az_IR.UTF-8
+# environment
+PAGER = less
 # environment
 LC_ALL = C
 # environment
 GJS_DEBUG_TOPICS = JS ERROR;JS LOG
+# environment
+GNOME_TERMINAL_SCREEN = /org/gnome/Terminal/screen/cea0f64a_914a_4775_b974_eb6e1a3a2828
 # automatic
+ 
 ^F = $(notdir $^)
+# environment
+GNOME_TERMINAL_SERVICE = :1.86
 # default
 SUFFIXES := 
 # environment
@@ -232,7 +246,7 @@ CHROME_DESKTOP = code-url-handler.desktop
 # default
 .INCLUDE_DIRS = /usr/include /usr/local/include /usr/include
 # environment
-LC_IDENTIFICATION = az_IR.UTF-8
+GJS_DEBUG_OUTPUT = stderr
 # default
 .RECIPEPREFIX := 
 # environment
@@ -242,9 +256,11 @@ IS_LINUX_OS := 1
 # environment
 LANG = C
 # environment
-VSCODE_PID = 2215
+TERM = xterm-256color
+# environment
+VSCODE_PID = 3857
 # variable set hash-table stats:
-# Load=115/1024=11%, Rehash=0, Collisions=12/154=8%
+# Load=123/1024=12%, Rehash=0, Collisions=18/162=11%
 
 # Pattern-specific Variable Values
 
@@ -252,9 +268,9 @@ VSCODE_PID = 2215
 
 # Directories
 
-# . (device 66307, inode 14715845): 19 files, no impossibilities.
+# . (device 66307, inode 14715845): 21 files, no impossibilities.
 
-# 19 files, no impossibilities in 1 directories.
+# 21 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -411,7 +427,6 @@ release: .install-poetry
 #  File does not exist.
 #  File has not been updated.
 
- 
 run:
 #  Phony target (prerequisite of .PHONY).
 #  Implicit rule search has not been done.
@@ -455,6 +470,7 @@ deploy:
 
 flake8:
 #  Implicit rule search has not been done.
+ 
 #  Modification time never checked.
 #  File has not been updated.
 #  recipe to execute (from 'Makefile', line 80):
@@ -484,12 +500,12 @@ run-slac:
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 49 / storage = 501 B / avg = 10 B
-# current buf: size = 8162 B / used = 501 B / count = 49 / avg = 10 B
+# strcache buffers: 1 (0) / strings = 51 / storage = 523 B / avg = 10 B
+# current buf: size = 8162 B / used = 523 B / count = 51 / avg = 10 B
 
-# strcache performance: lookups = 87 / hit rate = 43%
+# strcache performance: lookups = 89 / hit rate = 42%
 # hash-table stats:
-# Load=49/8192=1%, Rehash=0, Collisions=1/87=1%
-# Finished Make data base on Thu Jul  7 16:34:49 2022
+# Load=51/8192=1%, Rehash=0, Collisions=1/89=1%
+# Finished Make data base on Mon Aug  1 12:32:37 2022
 
  
