@@ -1,1 +1,0 @@
-{"buildTargets":["black","build","code-quality","configure-credentials","deploy","dev","docs","flake8","help","install-local","mypy","poetry-update","reformat","release","run","run-local","run-slac","tests","update"],"launchTargets":[],"customConfigurationProvider":{"workspaceBrowse":{"browsePath":[],"compilerArgs":[]},"fileIndex":[]}}
