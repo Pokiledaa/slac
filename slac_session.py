@@ -50,7 +50,7 @@ class Timouts(IntEnum) :
     WAIT_D_LINK_READY_IND = 7
     WAIT_HC_START_LISTEN_FOR_SLAC_ASSN_CNF = 5
     WAIT_SEQUENCE = 5
-    WAIT_SLAC_INIT = 25
+    WAIT_SLAC_INIT = 10
     
 
 
@@ -83,9 +83,6 @@ class SlacEvseSession () :
         logger.info("Initilalizing <SLAC Handler> Module")
 
 
-
-       
-
     async def send_frame(self, frame_to_send: bytes) -> None:
         """
         Async wrapper for a sendeth that checks if sendeth is an awaitable
@@ -115,16 +112,14 @@ class SlacEvseSession () :
     async def insys_type_indicator (self , type_to_check:bytes) :
         pass
 
-
-
-
-    async def evse_start_slac_association (self) -> bool :
+    async def evse_start_slac_association (self) -> bool:
         """
         TODO : Write The Documentation
         Step 1 : Creating Ethrenet Header
         Step 2 : Creating The Insys PLC Header
         
         """
+        err = False
         sequence_state = 0
         logger.info("Running The Start Slac Association Handle")
         eth_header = EthernetHeader (
@@ -135,7 +130,6 @@ class SlacEvseSession () :
         insys_header  = InsysPLCHeader(SLAC_ASS_START)
         slac_start_ass_payload = bytes(58)
 
-    
         frame = (
             eth_header.pack_big()
             + insys_header.pack_big()
@@ -143,24 +137,28 @@ class SlacEvseSession () :
         )
         await self.send_frame(frame)
 
-        while True :
+        while True:
             if sequence_state == 0 :
-                try :
+                try:
                     data_rcvd = await self.rcv_frame(
                         rcv_frame_size=60,
                         timeout=Timouts.WAIT_SLAC_INIT,
                     )
 
                 except asyncio.TimeoutError as e:
-                    raise TimeoutError("SLAC Association Start Confirmation Timeout raised") from e
+                    # raise TimeoutError("SLAC Association Start Confirmation Timeout raised") from e
+                    logger.info("SLAC Association Start Confirmation Timeout raised")
+                    err = True
+                    break
 
                 if data_rcvd[15] == 0x0b and data_rcvd[16]== 0x02 :
                     
-                    if data_rcvd[17] == 0 :
+                    if data_rcvd[17] == 0:
                         logger.info("SLAC Start association Confirmation : <failure>")
-                        #TODO : Think about Wht if is Failure What Seuence should Procced
+                        err = True
+                        # TODO : Think about What if is Failure What Seuqence should Procced
 
-                    elif data_rcvd[17] == 1 :
+                    elif data_rcvd[17] == 1:
                         logger.info("SLAC Start Association Confirmation : <Succesfull>")
                         sequence_state = 1
 
@@ -173,11 +171,13 @@ class SlacEvseSession () :
                     
 
                 except asyncio.TimeoutError as e:
-                    raise TimeoutError("SLAC ASSOCIATION START Timeout raised") from e
+                    # raise TimeoutError("SLAC ASSOCIATION START Timeout raised") from e
+                    logger.info("SLAC ASSOCIATION START Timeout raised")
+                    err = True
+                    break
                 
                 if data_rcvd[15] == 0x0b and data_rcvd[16]== 0x0c :
-                    sequence_state =2
-
+                    sequence_state = 2
 
             elif sequence_state == 2:
                 try :
@@ -187,7 +187,10 @@ class SlacEvseSession () :
                     )
 
                 except asyncio.TimeoutError as e:
-                    raise TimeoutError("SLAC Listen Calculation Timeout raised") from e
+                    # raise TimeoutError("SLAC Listen Calculation Timeout raised") from e
+                    logger.info("SLAC Listen Calculation Timeout raised")
+                    err = True
+                    break
 
                 if data_rcvd[15] == 0x0b and data_rcvd[16]== 0x05 :
                     payload = HC_LISTEN_CALC_RESULT.from_bytes(data_rcvd)
@@ -195,7 +198,7 @@ class SlacEvseSession () :
                     print( hexlify (payload.run_id))
                     sequence_state = 3
 
-            elif sequence_state ==3 :
+            elif sequence_state == 3:
                 try :
                     data_rcvd = await self.rcv_frame(
                         rcv_frame_size=60,
@@ -203,28 +206,28 @@ class SlacEvseSession () :
                     )
 
                 except asyncio.TimeoutError as e:
-                    raise TimeoutError("SLAC D_Link Recive Status Timout") from e
+                    # raise TimeoutError("SLAC D_Link Recive Status Timout") from e
+                    logger.info("SLAC D_Link Recive Status Timout")
+                    err = True
+                    break
 
-                if data_rcvd[15] == 0x0b and data_rcvd[16]== 0x06 :
+                if data_rcvd[15] == 0x0b and data_rcvd[16] == 0x06:
                     
-                    if data_rcvd[17] == 0 :
+                    if data_rcvd[17] == 0:
                         logger.info("SLAC D_Link Established : <Link Established> ")
                         break
-                        
 
-                    elif data_rcvd[17] == 1 :
+                    elif data_rcvd[17] == 1:
                         logger.info("SLAC D_Link Established : <No Link>")
-                        
-                        #TODO : Think about Wht if is Failure What Seuence should Procced
-                    
-                
+                        err = True
+                        break
+                        # TODO : Think about What if is Failure What Sequence should Procced
 
+        return err
 
+    async def terminating_data_link(self) -> bool:
 
-
-    async def terminating_data_link (self)->bool :
-
-        logger.info("Running The Terminationg Data Link Handle")
+        logger.info("Running The Terminating Data Link Handle")
         eth_header = EthernetHeader (
             dst_mac= self.evse_plc_mac,
             src_mac= self.evse_mac,
@@ -262,6 +265,7 @@ class SlacEvseSession () :
 
     async def evse_stop_slac_association (self) :
         sequence_state = 0
+        err = False
 
         logger.info("Running The Stop Slac Association Handle")
         eth_header = EthernetHeader (
@@ -269,7 +273,7 @@ class SlacEvseSession () :
             src_mac= self.evse_mac,
         ) 
 
-        insys_header  = InsysPLCHeader(InsysCmdType.SLAC_ASS_STOP)
+        insys_header = InsysPLCHeader(InsysCmdType.SLAC_ASS_STOP)
         slac_stop_ass_payload = b"\x00"
 
         frame = (
@@ -278,7 +282,7 @@ class SlacEvseSession () :
             + slac_stop_ass_payload
         )
         await self.send_frame(frame)
-        while True :
+        while True:
 
             if sequence_state == 0 :
                 try :
@@ -288,39 +292,49 @@ class SlacEvseSession () :
                     )
 
                 except asyncio.TimeoutError as e:
-                    raise TimeoutError("Timout In Confirmation Response of Stop Slac Association") from e
+                    # raise TimeoutError("Timout In Confirmation Response of Stop Slac Association") from e
+                    logger.info("Timout In Confirmation Response of Stop Slac Association")
+                    err = True
+                    break
                 
                 if data_rcvd[15] == 0x0b and data_rcvd[16]== 0x04 :
                 
-                    if data_rcvd[17] == 0 :
+                    if data_rcvd[17] == 0:
                         logger.info("Slac Stop :failure")
-                    elif data_rcvd[17] == 1 :
+                        err = True
+                        break
+                    elif data_rcvd[17] == 1:
                         logger.info("Slac Stop :success")
                         sequence_state = 1
-                    elif data_rcvd[17] == 2 :
+                    elif data_rcvd[17] == 2:
                         logger.info("System State is already unoccupied")
 
-            elif sequence_state == 1 :
+            elif sequence_state == 1:
 
-                try :
+                try:
                     data_rcvd = await self.rcv_frame(
                         rcv_frame_size=60,
                         timeout=Timouts.WAIT_D_LINK_READY_IND,
                     )
 
                 except asyncio.TimeoutError as e:
-                    raise TimeoutError("Timout In Confirmation Response of Data Link  No link") from e
+                    # raise TimeoutError("Timout In Confirmation Response of Data Link  No link") from e
+                    logger.info("Timout In Confirmation Response of Data Link  No link")
+                    err = True
+                    break
 
-                if data_rcvd[15] == 0x0b and data_rcvd[16]== 0x06 :
+                if data_rcvd[15] == 0x0b and data_rcvd[16] == 0x06:
                 
-                    if data_rcvd[17] == 1 :
+                    if data_rcvd[17] == 1:
                         logger.info("Data Link  :No Link ")
+                        err = True
                         break
-                    else :
+                    else:
                         pass
+        return err
 
 
-class SlacSessionHandler(SlacEvseSession) :
+class SlacSessionHandler(SlacEvseSession):
     def __init__(self, evse_id: str, iface: str):
         super().__init__(evse_id, iface)
 

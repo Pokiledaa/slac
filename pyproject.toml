@@ -1,12 +1,11 @@
 [tool.poetry]
 name = "insys_slac"
-version = "0.3.0"
+version = "0.4.0"
 description = "Slac Implementation For Insys Powerline Module"
 authors = ["pokiledaa <parsaoski.po@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.10"
-aiofile = "^3.7.4" 
 pyzmq = "^23.2.0"
 
 [tool.poetry.dev-dependencies]
