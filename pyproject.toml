@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "insys_slac"
+version = "0.4.0"
+description = "Slac Implementation For Insys Powerline Module"
+authors = ["pokiledaa <parsaoski.po@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+pyzmq = "^23.2.0"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
